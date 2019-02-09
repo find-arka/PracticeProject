@@ -76,7 +76,7 @@ public class StreamAndSortedTests {
 	}
 
 	/**
-	 * Sorting List of Objects based on member variable comparison
+	 * Sorting List of Objects based on member variable comparison and creating a different sorted list
 	 */
 	@Test
 	public void testSortedArrayofHumansBasedOnName() {
@@ -88,10 +88,36 @@ public class StreamAndSortedTests {
 		Comparator<Human> humanComparisonBasedOnName = (h1, h2) -> h1.getName().compareTo(h2.getName());
 
 		List<Human> sortedHumans = humans.stream().sorted(humanComparisonBasedOnName).collect(Collectors.toList());
-
+		
 		assertEquals("anvita", sortedHumans.get(0).getName());
 		assertEquals("aritra", sortedHumans.get(1).getName());
 		assertEquals("arka", sortedHumans.get(2).getName());
+	}
+	
+	/**
+	 * Sorting Original List of Objects based on member variable comparison & then reverse sorting the same list
+	 */
+	@Test
+	public void testSortingOriginalListAndReverseSorting() {
+		List<Human> humans = new ArrayList<>();
+		humans.add(new Human("arka", 27));
+		humans.add(new Human("anvita", 27));
+		humans.add(new Human("aritra", 26));
+
+		Comparator<Human> humanComparisonBasedOnName = (h1, h2) -> h1.getName().compareTo(h2.getName());
+		
+		//Sorting
+		humans.sort(humanComparisonBasedOnName);
+		
+		assertEquals("anvita", humans.get(0).getName());
+		assertEquals("aritra", humans.get(1).getName());
+		assertEquals("arka", humans.get(2).getName());
+		
+		//Reverse sorting
+		humans.sort(humanComparisonBasedOnName.reversed());
+		assertEquals("anvita", humans.get(2).getName());
+		assertEquals("aritra", humans.get(1).getName());
+		assertEquals("arka", humans.get(0).getName());
 	}
 
 	/**
